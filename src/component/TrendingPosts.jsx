@@ -18,23 +18,38 @@ const TrendingPosts = () => {
   }
   
   return (
-    <div className="container mx-auto px-4 py-6">
-      <h1 className="text-2xl font-bold mb-6">Trending Posts</h1>
+    <div className="trending-posts-container">
+      <h2 className="text-2xl font-bold mb-6">Trending Posts</h2>
       
       {loading ? (
-        <Loading />
+        <div className="flex justify-center py-8">
+          <Loading />
+        </div>
       ) : error ? (
-        <div className="text-red-500">Error: {error}</div>
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          <p className="font-medium">Error: {error}</p>
+        </div>
       ) : (
-        <div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {trendingPosts.length > 0 ? (
-            <div className="space-y-4">
-              {trendingPosts.map(post => (
-                <PostCard key={post.id} post={post} trending={true} />
-              ))}
-            </div>
+            trendingPosts.map(post => (
+              <div key={post.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                <div className="post-image-container h-48 overflow-hidden">
+                  <img 
+                    src={post.imageUrl || '/placeholder-image.jpg'} 
+                    alt={post.title} 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-4">
+                  <PostCard post={post} />
+                </div>
+              </div>
+            ))
           ) : (
-            <p className="text-gray-500">No trending posts found.</p>
+            <div className="col-span-full text-center py-8 text-gray-500">
+              No trending posts found.
+            </div>
           )}
         </div>
       )}

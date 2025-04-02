@@ -1,8 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-// Generate deterministic but random-looking data based on endpoint
 export const generateMockData = (endpoint) => {
-  // Set a seed to ensure consistent data between renders
   faker.seed(42);
   
   switch (endpoint) {
@@ -35,7 +33,6 @@ const generatePosts = (count) => {
   const now = new Date();
   
   for (let i = 1; i <= count; i++) {
-    // Create posts with timestamps spread over the last 30 days
     const randomDaysAgo = faker.number.int({ min: 0, max: 30 });
     const timestamp = new Date(now);
     timestamp.setDate(timestamp.getDate() - randomDaysAgo);
